@@ -19,14 +19,19 @@ fourcc = cv2.VideoWriter_fourcc(*'XVID') # choose codec
 # create VideoWriter object w by h, 30 frames per second
 out = cv2.VideoWriter('eggs-reverse.avi',fourcc, 30.0, (w,h))
 
+buffer = []
 while True:
     ret, I = cap.read()
 
     if ret == False: # end of video (or error)
         break
+    
+    buffer.append(I)
+cap.release()
 
+while len(buffer) > 0:
     # write the current frame I
+    I = buffer.pop()
     out.write(I)
 
-cap.release()
 out.release()

@@ -8,28 +8,31 @@ levels = 256
 
 # calculating histogram
 def calc_hist(I, levels):
-  hist = np.zeros(levels)
-  ...
+  hist = np.zeros(levels, dtype=np.int32)
+  for i in range(levels):
+    hist[i] = np.sum(I == i)
   return hist
 
 
 # calculating CDF
 def calc_cdf(hist, levels):
   cdf = np.zeros_like(hist)
-  ...
+  cdf[0] = hist[0]
+  for i in range(1, levels):
+    cdf[i] = cdf[i-1] + hist[i]
   return cdf
 
 hist = calc_hist(I, levels)
 cdf = calc_cdf(hist, levels)
 
 # normalize CDF
-...
+normalized_cdf = cdf / cdf[-1] # cdf[-1] = N
 
 # mapping
-mapping = ...
+mapping = (normalized_cdf * (levels - 1)).astype(np.uint8) # f(c) = 255 * H(c) / N, f is the mapping function
 
 # replace intensity
-equalized_image = ...
+equalized_image = mapping[I]
 
 equalized_image_hist = calc_hist(equalized_image, levels)
 equalized_image_cdf = calc_cdf(equalized_image_hist, levels)
