@@ -10,12 +10,12 @@ cv2.imshow('Thresholded', T)
 cv2.waitKey(0) # press any key to continue...
 
 ## erosion 
-kernel = np.ones((5,5),np.uint8)
+kernel = np.ones((19,19),np.uint8)
 T = cv2.erode(T,kernel)
-cv2.imshow('After Erosion', T)
-cv2.waitKey(0) # press any key to continue...
+# cv2.imshow('After Erosion', T)
+# cv2.waitKey(0) # press any key to continue...
 
-n,C = cv2.connectedComponents(T);
+n,C = cv2.connectedComponents(T)
 
 font = cv2.FONT_HERSHEY_SIMPLEX 
 cv2.putText(T,'There are %d beans!'%(n-1),(20,40), font, 1, 255,2)
