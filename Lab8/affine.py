@@ -5,9 +5,13 @@ I = cv2.imread('karimi.jpg')
 
 t = np.array([[30],
               [160]], dtype=np.float32)
-A = np.array([[.7, 0.8],
-              [-0.3, .6]], dtype=np.float32)
+# t = np.zeros((2,1), dtype=np.float32)
+# A = np.array([[.7, 0.8],
+#               [-0.3, .6]], dtype=np.float32)
 
+# diagonal matrix
+A = np.array([[1, 0],
+              [0, -.6]], dtype=np.float32)
 
 
 

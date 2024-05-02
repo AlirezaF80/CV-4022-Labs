@@ -15,8 +15,8 @@ points2 = np.array([(46,75),
                     (76,251)]).astype(np.float32)
  
 for i in range(4):
-    cv2.circle(I1, (points1[i,0], points1[i,1]), 3, [0,0,255],2)
-    cv2.circle(I2, (points2[i,0], points2[i,1]), 3, [0,0,255],2)
+    cv2.circle(I1, (int(points1[i,0]), int(points1[i,1])), 3, (0,0,255),2)
+    cv2.circle(I2, (int(points2[i,0]), int(points2[i,1])), 3, (0,0,255),2)
 
 # compute homography from point correspondences
 H = cv2.getPerspectiveTransform(points1, points2)

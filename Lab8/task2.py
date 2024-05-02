@@ -14,11 +14,16 @@ n = 480
 m = 320
 output_size = (n,m)
 
-J = np.zeros((m,n)) # delete this!!
+points2 = np.array([(0, 0), (n, 0), (n, m), (0, m)], dtype=np.float32)
+
+H = cv2.getPerspectiveTransform(points1, points2)
+J = cv2.warpPerspective(I,H,  output_size)
+
+# J = np.zeros((m,n)) # delete this!!
 
 # mark corners of the plate in image I
 for i in range(4):
-    cv2.circle(I, (points1[i,0], points1[i,1]), 5, [0,0,255],2)
+    cv2.circle(I, (int(points1[i,0]), int(points1[i,1])), 5, (0,0,255),2)
 
 cv2.imshow('I', I);
 cv2.waitKey(0)

@@ -13,11 +13,12 @@ for theta in range(0,360):
                   [np.sin(th), np.cos(th)]])
 
     t = np.zeros((2,1)) # you need to change this!
+    t = c - np.dot(R,c)
 
     # concatenate R and t to create the 2x3 transformation matrix
     M = np.hstack([R,t])
 
-    J = cv2.warpAffine(I,M, (I.shape[1], I.shape[0]) )
+    J = cv2.warpAffine(I,M, (I.shape[1], I.shape[0]))
 
     cv2.imshow('J',J)
 
