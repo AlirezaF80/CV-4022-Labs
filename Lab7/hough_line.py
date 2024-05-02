@@ -21,7 +21,7 @@ G = cv2.cvtColor(I,cv2.COLOR_BGR2GRAY) # -> grayscale
 
 E = cv2.Canny(G,100,200) # find the edges
 
-min_votes = 160 # mininum votes to be considered a line
+min_votes = 250 # mininum votes to be considered a line
 distance_resolution = 1 # 1 pixel: resolution of the parameter "rho" (distance to origin)
 angle_resolution = np.pi/180 # pi/180 radians: resolution (bin size) of the parameter "theta" 
 L = cv2.HoughLines(E,distance_resolution,angle_resolution,min_votes)

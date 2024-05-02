@@ -3,23 +3,30 @@ import cv2
 
 I = cv2.imread('coins.jpg')
 G = cv2.cvtColor(I,cv2.COLOR_BGR2GRAY)
-G = cv2.GaussianBlur(G, (5,5), 0);
+G = cv2.GaussianBlur(G, (5,5), 0)
 
-canny_high_threshold = 160
-min_votes = 30 # minimum no. of votes to be considered as a circle
+canny_high_threshold = 200
+min_votes = 50
 min_centre_distance = 40
-
-circles = np.array([[10,10]])
+resolution = 1.5
+minRadius = 30
+maxRadius = 100
+circles = cv2.HoughCircles(G,cv2.HOUGH_GRADIENT,resolution,min_centre_distance,
+                            param1=canny_high_threshold,
+                            param2=min_votes,minRadius=minRadius,maxRadius=maxRadius)
 
 for c in circles[0,:]:
-    x = 100
-    y = 100
-    r = 40
+    x = c[0] # x coordinate of the centre
+    y = c[1] # y coordinate of the centre
+    r = c[2] # radius
+    y = int(y)
+    x = int(x)
+    r = int(r)
     cv2.circle(I,(x,y), r, (0,255,0),2)
 
 print(circles.shape)
     
-n = 100
+n = circles.shape[1]
 font = cv2.FONT_HERSHEY_SIMPLEX
 cv2.putText(I,'There are %d coins!'%n,(400,40), font, 1,(255,0,0),2)
 

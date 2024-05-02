@@ -6,7 +6,7 @@ I = cv2.imread('samand.jpg')
 G = cv2.cvtColor(I,cv2.COLOR_BGR2GRAY) # -> Grayscale
 G = cv2.GaussianBlur(G, (3,3), 0);     # Gaussian blur
 
-canny_high_threshold = 200 
+canny_high_threshold = 700
 min_votes = 100 # minimum no. of votes to be considered as a circle
 min_centre_distance = 40 # minimum distance between the centres of detected circles
 resolution = 1 # resolution of parameters (centre, radius) relative to image resolution
@@ -20,6 +20,9 @@ for c in circles[0,:]:
     x = c[0] # x coordinate of the centre
     y = c[1] # y coordinate of the centre
     r = c[2]  # radius
+    y = int(y)
+    x = int(x)
+    r = int(r)
    
     # draw the circle
     cv2.circle(I,(x,y), r, (0,255,0),2)
