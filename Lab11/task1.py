@@ -2,7 +2,7 @@ import numpy as np
 import cv2
 import glob
 
-sift = cv2.xfeatures2d.SIFT_create() # opencv 3
+sift = cv2.SIFT_create() # opencv 3
 # use "sift = cv2.SIFT()" if the above fails
 
 I2 = cv2.imread('scene.jpg')
@@ -18,7 +18,20 @@ for fname in fnames:
     keypoints1, desc1 = sift.detectAndCompute(G1, None); 
     cv2.drawKeypoints(G1,keypoints2,I1)
     
+    # brute-force matching
+    bf = cv2.BFMatcher(crossCheck=False)
+
+    # for each descriptor in desc1 find its
+    # two nearest neighbours in desc2
+    matches = bf.knnMatch(desc1,desc2, k=2)
+    alpha = 0.75
     good_matches = []
+    for m1,m2 in matches:
+        # print(m1.distance, m2.distance)
+        # m1 is the best match
+        # m2 is the second best match
+        if m1.distance < alpha *m2.distance:
+            good_matches.append(m1)
             
     I = cv2.drawMatches(I1,keypoints1,I2,keypoints2,good_matches, None)
     

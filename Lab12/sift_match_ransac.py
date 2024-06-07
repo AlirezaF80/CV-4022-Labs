@@ -7,7 +7,7 @@ G1 = cv2.cvtColor(I1,cv2.COLOR_BGR2GRAY)
 I2 = cv2.imread('scene.jpg')
 G2 = cv2.cvtColor(I2,cv2.COLOR_BGR2GRAY)
 
-sift = cv2.xfeatures2d.SIFT_create() # opencv 3
+sift = cv2.SIFT_create() # opencv 3
 # use "sift = cv2.SIFT()" if the above fails
 
 # detect keypoints and compute their disriptor vectors
@@ -21,7 +21,7 @@ print("Descriptors1.shape =", desc1.shape)
 print("Descriptors2.shape =", desc2.shape)
 
 # stop here!!
-exit() # comment this line out to move on!
+# exit() # comment this line out to move on!
 
 # brute-force matching
 bf = cv2.BFMatcher()
@@ -39,14 +39,14 @@ for m1,m2 in matches:
         good_matches.append(m1)
 
 # apply RANSAC
-# points1 = [keypoints1[m.queryIdx].pt for m in good_matches]
-# points1 = np.array(points1,dtype=np.float32)
+points1 = [keypoints1[m.queryIdx].pt for m in good_matches]
+points1 = np.array(points1,dtype=np.float32)
 
-# points2 = [keypoints2[m.trainIdx].pt for m in good_matches]
-# points2 = np.array(points2,dtype=np.float32)
-# H, mask = cv2.findHomography(points1, points2, cv2.RANSAC,5.0) # 5 pixels margin
-# mask = mask.ravel().tolist()
-# print(mask)
+points2 = [keypoints2[m.trainIdx].pt for m in good_matches]
+points2 = np.array(points2,dtype=np.float32)
+H, mask = cv2.findHomography(points1, points2, cv2.RANSAC,5.0) # 5 pixels margin
+mask = mask.ravel().tolist()
+print(mask)
 
 good_matches = [m for m,msk in zip(good_matches,mask) if msk == 1]
 

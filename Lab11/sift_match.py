@@ -7,14 +7,14 @@ G1 = cv2.cvtColor(I1,cv2.COLOR_BGR2GRAY)
 I2 = cv2.imread('scene.jpg')
 G2 = cv2.cvtColor(I2,cv2.COLOR_BGR2GRAY)
 
-sift = cv2.xfeatures2d.SIFT_create() # opencv 3
+sift = cv2.SIFT_create() # opencv 3
 # use "sift = cv2.SIFT()" if the above fails
 
 keypoints1 = sift.detect(G1,None)
 keypoints2 = sift.detect(G2,None)
 
-cv2.drawKeypoints(G1,keypoints1,I1, flags=cv2.DRAW_MATCHES_FLAGS_DRAW_RICH_KEYPOINTS)
-cv2.drawKeypoints(G2,keypoints2,I2, flags=cv2.DRAW_MATCHES_FLAGS_DRAW_RICH_KEYPOINTS)
+# cv2.drawKeypoints(G1,keypoints1,I1, flags=cv2.DRAW_MATCHES_FLAGS_DRAW_RICH_KEYPOINTS)
+# cv2.drawKeypoints(G2,keypoints2,I2, flags=cv2.DRAW_MATCHES_FLAGS_DRAW_RICH_KEYPOINTS)
 
 print("No. of keypoints1 =", len(keypoints1))
 print("No. of keypoints2 =", len(keypoints2))
@@ -38,8 +38,9 @@ bf = cv2.BFMatcher(crossCheck=False)
 matches = bf.knnMatch(desc1,desc2, k=2)
     
 good_matches = []
-alpha = 0.75
+alpha = 0.8
 for m1,m2 in matches:
+    print(m1.distance, m2.distance)
     # m1 is the best match
     # m2 is the second best match
     if m1.distance < alpha *m2.distance:

@@ -2,7 +2,7 @@ import numpy as np
 import cv2
 import glob
 
-sift = cv2.xfeatures2d.SIFT_create() # opencv 3
+sift = cv2.SIFT_create() # opencv 3
 # use "sift = cv2.SIFT()" if the above fails
 
 I2 = cv2.imread('scene.jpg')
@@ -35,14 +35,16 @@ for fname in fnames:
     points2 = np.array(points2,dtype=np.float32)
 
     H, mask = cv2.findHomography(points1, points2, cv2.RANSAC,5.0)
+    mask = mask.ravel().tolist()
 
-    H = np.eye(3,dtype=np.float32) # this needs to be changed
-    pts = np.float32([ [100,100],
-                       [100,400],
-                       [400,400],
-                       [400,100] ]).reshape(-1,1,2) # this needs to be changed
+    good_matches = [m for m, msk in zip(good_matches,mask) if msk == 1]
+
+    pts = np.float32([ [0,0],
+                          [0,I1.shape[0]],
+                          [I1.shape[1],I1.shape[0]],
+                          [I1.shape[1],0] ]).reshape(-1,1,2)
     
-    dst = cv2.perspectiveTransform(pts,H).reshape(4,2)
+    dst = cv2.perspectiveTransform(pts,H).reshape(4,2).astype(np.int32)
    
     J = I2.copy()
     cv2.line(J, (dst[0,0], dst[0,1]), (dst[1,0], dst[1,1]), (255,0,0),3)
