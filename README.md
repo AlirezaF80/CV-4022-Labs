@@ -1,4 +1,4 @@
-# Fundamentals of Computer Vision
+# Computer Vision Labs - 4022
 This repo contains my solutions to Labs of Fundementals of Computer Vision, taught by Dr. Behrooz Nasihatkon, in semester 4022 at K.N.T.U. 
 
 ## Labs
