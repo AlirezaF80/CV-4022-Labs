@@ -17,4 +17,4 @@ This repo contains my solutions to Labs of Fundementals of Computer Vision, taug
 - Lab 12: Feature-based Image Alignment, RANSAC
 
 ## Course Page
-For more details on the course, check the [course's website]([https://wp.kntu.ac.ir/nasihatkon/teaching/cvug/s2018/index.html](https://wp.kntu.ac.ir/nasihatkon/teaching/cvug/s2024/)
+For more details on the course, check the course's [website](https://wp.kntu.ac.ir/nasihatkon/teaching/cvug/s2024/)
